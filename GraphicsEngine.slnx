@@ -5,4 +5,5 @@
   </Configurations>
   <Project Path="Engine/Engine.vcxproj" Id="44dffade-cd47-4c18-9736-a4270be9950f" />
   <Project Path="Game/Game.vcxproj" Id="0a1c600f-1d83-452a-9b95-b5ee1bdccb4b" />
+  <Project Path="Shaders/Shaders.vcxproj" />
 </Solution>

@@ -149,7 +149,8 @@
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
     <PreBuildEvent>
-      <Command>"$(SolutionDir)Tools\compile_shaders.bat" "$(SolutionDir)Shaders" "$(SolutionDir)build\assets\shaders"</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -180,6 +181,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
       <Project>{44dffade-cd47-4c18-9736-a4270be9950f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Shaders\Shaders.vcxproj">
+      <Project>{1dc1933f-925a-3eb9-ac2e-61b6862b1f0c}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

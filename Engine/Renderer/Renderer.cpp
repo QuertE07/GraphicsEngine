@@ -256,3 +256,13 @@ void gl::Renderer::Draw(uint32_t vertexCount)
     //   first instance - 0, start at the first instance
     SDL_DrawGPUPrimitives(m_renderPass, vertexCount, 1, 0, 0);
 }
+
+void gl::Renderer::SetVertexUniform(uint32_t slot, const void* data, uint32_t size)
+{
+    SDL_PushGPUVertexUniformData(m_commandBuffer, slot, data, size);
+}
+
+void gl::Renderer::SetFragmentUniform(uint32_t slot, const void* data, uint32_t size)
+{
+    SDL_PushGPUFragmentUniformData(m_commandBuffer, slot, data, size);
+}
