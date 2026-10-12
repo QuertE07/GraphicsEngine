@@ -12,8 +12,19 @@
     <Filter Include="Assets">
       <UniqueIdentifier>{a1aac075-ed22-4a0f-ae0e-b35846b582d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Shaders">
+      <UniqueIdentifier>{5b2d8567-4595-4f6d-9ed9-220ef55b7a6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\Shaders\color.frag.hlsl">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\position.vert.hlsl">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

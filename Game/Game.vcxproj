@@ -148,6 +148,9 @@
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
+    <PreBuildEvent>
+      <Command>"$(SolutionDir)Tools\compile_shaders.bat" "$(SolutionDir)Shaders" "$(SolutionDir)build\assets\shaders"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -178,6 +181,14 @@
     <ProjectReference Include="..\Engine\Engine.vcxproj">
       <Project>{44dffade-cd47-4c18-9736-a4270be9950f}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\Shaders\color.frag.hlsl">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\position.vert.hlsl">
+      <FileType>Document</FileType>
+    </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
