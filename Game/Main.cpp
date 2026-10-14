@@ -7,6 +7,8 @@
 #include <map>
 #include <memory>
 #include <fstream>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 using namespace gl;
 
@@ -22,6 +24,13 @@ struct Vertex
     Vector3 position;
     Color4 color;
 };
+
+struct vertexUniform
+{
+    glm::mat4 model;
+};
+
+vertexUniform uniform;
 
 std::vector<Vertex> vertices =
 {
@@ -54,6 +63,11 @@ int main()
 
     Color4 color{ 0, 0, 0, 1 };
 
+    uniform.model = glm::mat4(1.0f);
+    uniform.model = glm::translate(uniform.model, glm::vec3(-0.2f, 0.0f, 0.0f));
+    uniform.model = glm::rotate(uniform.model, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    uniform.model = glm::scale(uniform.model, glm::vec3(0.5f, 0.5f, 0.5f));
+
     bool quit = false;
     while (!quit) {
 
@@ -71,11 +85,16 @@ int main()
         Engine::Get().Update();
         float dt = Engine::Get().GetTime().GetDeltaTime();
 
-        scale = sin(Engine::Get().GetTime().GetTime());
+        //scale = sin(Engine::Get().GetTime().GetTime());
 
-        color.r = sin(Engine::Get().GetTime().GetTime() * 1.3) * 0.5f + 0.5;
-        color.g = cos(Engine::Get().GetTime().GetTime() * 1.5) * 0.5f + 0.5;
-        color.b = 1 - (sin(Engine::Get().GetTime().GetTime() * 1.7) * 0.5f + 0.5);
+        float distance = sin(Engine::Get().GetTime().GetTime());
+
+        uniform.model = glm::translate(uniform.model, glm::vec3(distance / 30, 0.0f, 0.0f));
+        uniform.model = glm::rotate(uniform.model, glm::radians(2.0f), glm::vec3(0.0f, 0.5f, 0.5f));
+
+        color.r = sin(Engine::Get().GetTime().GetTime() * 2.6) * 0.5f + 0.5;
+        color.g = cos(Engine::Get().GetTime().GetTime() * 3.2) * 0.5f + 0.5;
+        color.b = 1 - (sin(Engine::Get().GetTime().GetTime() * 1.4) * 0.5f + 0.5);
 
         // RENDER
         Engine::Get().GetRenderer().BeginFrame();
@@ -83,7 +102,9 @@ int main()
         Engine::Get().GetRenderer().SetPipeline(*pipeline);
         Engine::Get().GetRenderer().SetVertexBuffer(*vb);
 
-        Engine::Get().GetRenderer().SetVertexUniform(0, &scale, sizeof(scale));
+        Engine::Get().GetRenderer().SetVertexUniform(0, &uniform, sizeof(uniform));
+
+        //Engine::Get().GetRenderer().SetVertexUniform(0, &scale, sizeof(scale));
         Engine::Get().GetRenderer().SetFragmentUniform(0, &color, sizeof(color));
 
         Engine::Get().GetRenderer().Draw(vb->GetVertexCount());

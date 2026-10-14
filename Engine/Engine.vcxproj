@@ -145,7 +145,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\box2d\include;$(SolutionDir)ThirdParty\rapidjson\include;$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)Engine;$(SolutionDir)ThirdParty\SDL3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\box2d\include;$(SolutionDir)ThirdParty\rapidjson\include;$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)Engine;$(SolutionDir)ThirdParty\SDL3\include;$(SolutionDir)ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
