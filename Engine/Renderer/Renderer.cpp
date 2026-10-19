@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "Pipeline.h"
 #include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 bool gl::Renderer::Initialize(const char* name, int width, int height)
 {
@@ -149,33 +150,6 @@ void gl::Renderer::DrawRect(float x, float y, float w, float h) const
     SDL_RenderRect(m_renderer, &rect);
 }
 
-void gl::Renderer::DrawModel(const Model& model, const Transform& transform) const
-{
-    for (auto mesh : model.GetMeshes())
-    {
-        SetColor(mesh.GetColor());
-
-        auto& points = mesh.GetPoints();
-
-        for (int i = 0; i + 1 < points.size(); i++)
-        {
-            Vector2 v1 = points[i];
-            Vector2 v2 = points[i + 1];
-
-            v1 *= transform.scale;
-            v2 *= transform.scale;
-
-            v1 = v1.Rotate(transform.rotation * DegToRad);
-            v2 = v2.Rotate(transform.rotation * DegToRad);
-
-            v1 += transform.position;
-            v2 += transform.position;
-
-            DrawLine(v1.x, v1.y, v2.x, v2.y);
-        }
-    }
-}
-
 void gl::Renderer::DrawDebugText(float x, float y, const char* text) const
 {
     SDL_RenderDebugText(m_renderer, x, y, text);
@@ -245,6 +219,22 @@ void gl::Renderer::SetVertexBuffer(const VertexBuffer& vertexBuffer)
     SDL_BindGPUVertexBuffers(m_renderPass, 0, &binding, 1);
 }
 
+void gl::Renderer::SetIndexBuffer(const IndexBuffer& indexBuffer)
+{
+    // describe which buffer to bind and where to start reading from
+    SDL_GPUBufferBinding binding{
+        .buffer = indexBuffer.m_gpuBuffer, // todo: the index buffer's gpu buffer
+        .offset = 0   // start reading at the beginning of the buffer
+    };
+
+    // bind the index buffer to the current render pass with SDL_BindGPUIndexBuffer()
+    // the draw calls that follow read their indices from this buffer
+    // parameters:
+    //   render pass   - the current render pass (m_renderPass)
+    //   bindings      - pointer to the binding above
+    SDL_BindGPUIndexBuffer(m_renderPass, &binding, SDL_GPU_INDEXELEMENTSIZE_32BIT);
+}
+
 void gl::Renderer::Draw(uint32_t vertexCount)
 {
     // draw using the currently bound pipeline and vertex buffer with SDL_DrawGPUPrimitives()
@@ -255,6 +245,11 @@ void gl::Renderer::Draw(uint32_t vertexCount)
     //   first vertex   - 0, start at the first vertex in the buffer
     //   first instance - 0, start at the first instance
     SDL_DrawGPUPrimitives(m_renderPass, vertexCount, 1, 0, 0);
+}
+
+void gl::Renderer::DrawIndex(const IndexBuffer& indexBuffer)
+{
+    SDL_DrawGPUIndexedPrimitives(m_renderPass, indexBuffer.GetIndexCount(), 1, 0, 0, 0);
 }
 
 void gl::Renderer::SetVertexUniform(uint32_t slot, const void* data, uint32_t size)

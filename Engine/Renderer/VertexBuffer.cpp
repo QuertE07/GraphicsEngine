@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "VertexBuffer.h"
+#include "Renderer.h"
 
 namespace gl
 {
@@ -13,12 +14,12 @@ namespace gl
 		}
 	}
 
-	bool VertexBuffer::Create(uint32_t vertexCount, uint32_t vertexSize, const uint8_t* data, SDL_GPUDevice* gpuDevice)
+	bool VertexBuffer::Create(uint32_t vertexCount, uint32_t vertexSize, const uint8_t* data, const Renderer& renderer)
 	{
 		// store the vertex count in m_vertexCount (needed later when drawing)
 		// store the gpu device in m_gpuDevice so the destructor can release the buffer later
 		m_vertexCount = vertexCount;
-		m_gpuDevice = gpuDevice;
+		m_gpuDevice = renderer.m_gpuDevice;
 
 		// calculate the total size in bytes of all the vertices (number of vertices * size of one vertex)
 		uint32_t verticesSize = vertexCount * vertexSize;
@@ -56,7 +57,7 @@ namespace gl
 		{
 			std::cerr << "Could not create transfer buffer: " << SDL_GetError() << std::endl;
 
-			SDL_ReleaseGPUBuffer(gpuDevice, m_gpuBuffer);
+			SDL_ReleaseGPUBuffer(renderer.m_gpuDevice, m_gpuBuffer);
 			m_gpuBuffer = nullptr;
 
 			return false;
@@ -72,8 +73,8 @@ namespace gl
 		{
 			std::cerr << "Could not map transfer buffer: " << SDL_GetError() << std::endl;
 
-			SDL_ReleaseGPUTransferBuffer(gpuDevice, transferBuffer);
-			SDL_ReleaseGPUBuffer(gpuDevice, m_gpuBuffer);
+			SDL_ReleaseGPUTransferBuffer(renderer.m_gpuDevice, transferBuffer);
+			SDL_ReleaseGPUBuffer(renderer.m_gpuDevice, m_gpuBuffer);
 			m_gpuBuffer = nullptr;
 
 			return false;
@@ -95,8 +96,8 @@ namespace gl
 		{
 			std::cerr << "Could not acquire GPU command buffer: " << SDL_GetError() << std::endl;
 
-			SDL_ReleaseGPUTransferBuffer(gpuDevice, transferBuffer);
-			SDL_ReleaseGPUBuffer(gpuDevice, m_gpuBuffer);
+			SDL_ReleaseGPUTransferBuffer(renderer.m_gpuDevice, transferBuffer);
+			SDL_ReleaseGPUBuffer(renderer.m_gpuDevice, m_gpuBuffer);
 			m_gpuBuffer = nullptr;
 
 			return false;
@@ -130,8 +131,8 @@ namespace gl
 		{
 			std::cerr << "Could not submit GPU command buffer: " << SDL_GetError() << std::endl;
 
-			SDL_ReleaseGPUTransferBuffer(gpuDevice, transferBuffer);
-			SDL_ReleaseGPUBuffer(gpuDevice, m_gpuBuffer);
+			SDL_ReleaseGPUTransferBuffer(renderer.m_gpuDevice, transferBuffer);
+			SDL_ReleaseGPUBuffer(renderer.m_gpuDevice, m_gpuBuffer);
 			m_gpuBuffer = nullptr;
 
 			return false;
