@@ -28,10 +28,7 @@ namespace gl
 		void DrawLine(float x1, float y1, float x2, float y2) const;
 		void DrawFillRect(float x, float y, float w, float h) const;
 		void DrawRect(float x, float y, float w, float h) const;
-		void DrawModel(const class Model& model, const struct Transform& transform) const;
 		void DrawDebugText(float x, float y, const char* text) const;
-		void DrawTexture(class Texture& texture, float x, float y, float angle = 0.0f, float scale = 1.0f, bool flipH = false, const Vector2& origin = { 0.5f, 0.5f }) const;
-		void DrawTexture(class Texture& texture, const struct Rect& source, float x, float y, float angle = 0.0f, float scale = 1.0f, bool flipH = false, const Vector2& origin = { 0.5f, 0.5f }) const;
 
 		int GetWidth() const { return m_width; }
 		int GetHeight() const { return m_height; }
@@ -51,6 +48,8 @@ namespace gl
 
 		void SetVertexUniform(uint32_t slot, const void* data, uint32_t size);
 		void SetFragmentUniform(uint32_t slot, const void* data, uint32_t size);
+
+		void SetFragmentTexture(uint32_t slot, const class Texture& texture);
 
 		friend class Text;
 		friend class Texture;

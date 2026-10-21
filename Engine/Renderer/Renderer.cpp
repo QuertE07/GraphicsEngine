@@ -155,44 +155,6 @@ void gl::Renderer::DrawDebugText(float x, float y, const char* text) const
     SDL_RenderDebugText(m_renderer, x, y, text);
 }
 
-void gl::Renderer::DrawTexture(Texture& texture, float x, float y, float angle, float scale, bool flipH, const Vector2& origin) const
-{
-    Vector2 size = texture.m_size;
-
-    float cameraX = (m_cameraEnabled) ? (m_camera.x - m_width / 2) : 0.0f;
-    float cameraY = (m_cameraEnabled) ? (m_camera.y - m_height / 2) : 0.0f;
-
-    SDL_FRect destRect;
-    destRect.w = size.x * scale;
-    destRect.h = size.y * scale;
-
-    destRect.x = (x - cameraX) - (destRect.w * origin.x);
-    destRect.y = (y - cameraY) - (destRect.h * origin.y);
-
-    SDL_RenderTextureRotated(m_renderer, texture.m_texture, NULL, &destRect, angle, NULL, flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
-}
-
-void gl::Renderer::DrawTexture(Texture& texture, const Rect& source, float x, float y, float angle, float scale, bool flipH, const Vector2& origin) const
-{
-    float cameraX = (m_cameraEnabled) ? (m_camera.x - m_width / 2) : 0.0f;
-    float cameraY = (m_cameraEnabled) ? (m_camera.y - m_height / 2) : 0.0f;
-
-    SDL_FRect sourceRect;
-    sourceRect.x = source.x;
-    sourceRect.y = source.y;
-    sourceRect.w = source.w;
-    sourceRect.h = source.h;
-
-    SDL_FRect destRect;
-    destRect.w = source.w * scale;
-    destRect.h = source.h * scale;
-
-    destRect.x = (x - cameraX) - (destRect.w * origin.x);
-    destRect.y = (y - cameraY) - (destRect.h * origin.y);
-
-    SDL_RenderTextureRotated(m_renderer, texture.m_texture, &sourceRect, &destRect, angle, NULL, flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
-}
-
 void gl::Renderer::SetPipeline(const Pipeline& pipeline)
 {
     // bind the pipeline to the current render pass with SDL_BindGPUGraphicsPipeline(renderPass, gpuPipeline)
@@ -260,4 +222,15 @@ void gl::Renderer::SetVertexUniform(uint32_t slot, const void* data, uint32_t si
 void gl::Renderer::SetFragmentUniform(uint32_t slot, const void* data, uint32_t size)
 {
     SDL_PushGPUFragmentUniformData(m_commandBuffer, slot, data, size);
+}
+
+void gl::Renderer::SetFragmentTexture(uint32_t slot, const Texture& texture)
+{
+    SDL_GPUTextureSamplerBinding binding
+    {
+        .texture = texture.m_gpuTexture,
+        .sampler = texture.m_gpuSampler
+    };
+
+    SDL_BindGPUFragmentSamplers(m_renderPass, slot, &binding, 1);
 }

@@ -13,14 +13,26 @@ namespace gl
     struct Transform
     {
         glm::vec3 position{ 0.0f };
-        glm::vec3 rotation{ 0.0f };
-        glm::vec3 scale{ 0.0f };
+        glm::vec3 rotation{ 0.0f }; // degrees
+        glm::vec3 scale{ 1.0f };
+
+        glm::mat4 matrix;
+
+        const glm::mat4& GetMatrix()
+        {
+            auto mxt = glm::translate(position);
+            auto mxr = glm::eulerAngleXYZ(glm::radians(rotation.y), glm::radians(rotation.x), glm::radians(rotation.z));
+            auto mxs = glm::scale(scale);
+
+            matrix = mxt * mxr * mxs;
+            return matrix;
+        }
 
         void Read(const json::value_t& value)
         {
-            //JSON_READ(value, position);
-            //JSON_READ(value, rotation);
-            //JSON_READ(value, scale);
+            JSON_READ(value, position);
+            JSON_READ(value, rotation);
+            JSON_READ(value, scale);
         }
     };
 }

@@ -45,7 +45,7 @@ void ParticleSystem::Draw(const Renderer& renderer)
 		if (particle.active)
 		{
 			// draw particle texture at current position
-			renderer.DrawTexture(*particle.sprite, particle.position.x, particle.position.y);
+			// renderer.DrawTexture(*particle.sprite, particle.position.x, particle.position.y);
 		}
 	}
 }

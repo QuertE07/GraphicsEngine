@@ -145,7 +145,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\box2d\include;$(SolutionDir)ThirdParty\rapidjson\include;$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)Engine;$(SolutionDir)ThirdParty\SDL3\include;$(SolutionDir)ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\box2d\include;$(SolutionDir)ThirdParty\rapidjson\include;$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)Engine;$(SolutionDir)ThirdParty\SDL3\include;$(SolutionDir)ThirdParty\assimp\include;$(SolutionDir)ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -210,7 +210,6 @@
     <ClInclude Include="Math\Transform.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
-    <ClInclude Include="Renderer\AnimatedModel.h" />
     <ClInclude Include="Renderer\Font.h" />
     <ClInclude Include="Renderer\IndexBuffer.h" />
     <ClInclude Include="Renderer\Mesh.h" />
@@ -221,8 +220,6 @@
     <ClInclude Include="Renderer\Shader.h" />
     <ClInclude Include="Renderer\Text.h" />
     <ClInclude Include="Renderer\Texture.h" />
-    <ClInclude Include="Renderer\TextureFrames.h" />
-    <ClInclude Include="Renderer\Tilemap.h" />
     <ClInclude Include="Renderer\VertexBuffer.h" />
     <ClInclude Include="Resources\Resource.h" />
     <ClInclude Include="Resources\ResourceManager.h" />
@@ -245,7 +242,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Renderer\AnimatedModel.cpp" />
     <ClCompile Include="Renderer\Font.cpp" />
     <ClCompile Include="Renderer\IndexBuffer.cpp" />
     <ClCompile Include="Renderer\Mesh.cpp" />
@@ -256,8 +252,6 @@
     <ClCompile Include="Renderer\Shader.cpp" />
     <ClCompile Include="Renderer\Text.cpp" />
     <ClCompile Include="Renderer\Texture.cpp" />
-    <ClCompile Include="Renderer\TextureFrames.cpp" />
-    <ClCompile Include="Renderer\Tilemap.cpp" />
     <ClCompile Include="Renderer\VertexBuffer.cpp" />
     <ClCompile Include="Serialization\Json.cpp" />
   </ItemGroup>
