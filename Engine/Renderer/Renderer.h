@@ -51,6 +51,8 @@ namespace gl
 
 		void SetFragmentTexture(uint32_t slot, const class Texture& texture);
 
+		void CreateDepthBuffer();
+
 		friend class Text;
 		friend class Texture;
 		friend class Shader;
@@ -64,6 +66,7 @@ namespace gl
 		SDL_GPUDevice* m_gpuDevice = nullptr;
 		SDL_GPUCommandBuffer* m_commandBuffer = nullptr;
 		SDL_GPURenderPass* m_renderPass = nullptr;
+		SDL_GPUTexture* m_depthTexture = nullptr;
 
 		bool m_cameraEnabled = true;
 		Vector2 m_camera = { 0, 0 };
