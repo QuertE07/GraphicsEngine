@@ -8,7 +8,6 @@
 #include "Core/StringUtils.h"
 
 #include "Renderer/Font.h"
-#include "Renderer/Mesh.h"
 #include "Renderer/Model.h"
 #include "Renderer/ParticleSystem.h"
 #include "Renderer/Renderer.h"
@@ -17,9 +16,6 @@
 
 #include "Math/MathUtils.h"
 #include "Math/Transform.h"
-#include "Math/Vector2.h"
-#include "Math/Vector3.h"
-#include "Math/Rect.h"
 
 #include "Framework/Actor.h"
 #include "Framework/Scene.h"

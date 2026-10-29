@@ -16,7 +16,7 @@ namespace gl
         std::string name;
         std::string tag;
         Transform transform {};
-        Vector2 velocity = { 0.0f, 0.0f };
+        glm::vec2 velocity = { 0.0f, 0.0f };
         float lifespan = 0.0f;
         bool persistent = false;
         std::shared_ptr<Texture> sprite;

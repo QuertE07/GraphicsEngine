@@ -1,6 +1,4 @@
 #pragma once
-#include "Math/Vector2.h"
-#include "Math/Vector3.h"
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <SDL3_image/SDL_image.h>
@@ -22,7 +20,7 @@ namespace gl
 
 		void SetColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255) const;
 		void SetColor(float r, float g, float b, float a = 1.0f) const;
-		void SetColor(const Color& color) const;
+		void SetColor(const glm::vec3& color) const;
 
 		void DrawPoint(float x, float y) const;
 		void DrawLine(float x1, float y1, float x2, float y2) const;
@@ -33,8 +31,8 @@ namespace gl
 		int GetWidth() const { return m_width; }
 		int GetHeight() const { return m_height; }
 
-		const Vector2& GetCamera() { return m_camera; }
-		void SetCamera(const Vector2& camera) { m_camera = camera; }
+		const glm::vec2& GetCamera() { return m_camera; }
+		void SetCamera(const glm::vec2& camera) { m_camera = camera; }
 		void EnableCamera(bool enable = true) { m_cameraEnabled = enable; }
 
 		SDL_GPUDevice* GetGPUDevice() const { return m_gpuDevice; }
@@ -69,7 +67,7 @@ namespace gl
 		SDL_GPUTexture* m_depthTexture = nullptr;
 
 		bool m_cameraEnabled = true;
-		Vector2 m_camera = { 0, 0 };
+		glm::vec2 m_camera = { 0, 0 };
 
 		int m_width = 0;
 		int m_height = 0;

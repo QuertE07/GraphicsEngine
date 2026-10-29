@@ -19,7 +19,7 @@ struct Output
 Output main(Input input)
 {
 	Output output;
-    output.color = u_texture.Sample(u_sampler, input.texcoord);
+    output.color = u_texture.Sample(u_sampler, input.texcoord) * color;
 
 	return output;
 }

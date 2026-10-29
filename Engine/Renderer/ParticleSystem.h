@@ -1,6 +1,4 @@
 #pragma once
-#include "Math/Vector2.h"
-#include "Math/Vector3.h"
 #include "Texture.h"
 
 #include <vector>
@@ -13,8 +11,8 @@ namespace gl
 		bool active{ false };
 		float lifespan{ 1 };
 
-		Vector2 position{ 0, 0 };
-		Vector2 velocity{ 0, 0 };
+		glm::vec2 position{ 0, 0 };
+		glm::vec2 velocity{ 0, 0 };
 
 		std::shared_ptr<Texture> sprite;
 	};

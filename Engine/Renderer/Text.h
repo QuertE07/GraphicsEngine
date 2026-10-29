@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Font.h"
-#include "Math/Vector3.h"
 #include "Renderer.h"
 #include "Resources/Resource.h"
 
@@ -16,7 +15,7 @@ namespace gl
 		Text(res_t<Font> font) : m_font{ font } {}
 		~Text();
 
-		bool Create(Renderer& renderer, const std::string& text, const Color& color);
+		bool Create(Renderer& renderer, const std::string& text, const glm::vec3& color);
 		void Draw(const Renderer& renderer, float x, float y);
 
 	private:

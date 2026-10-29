@@ -48,15 +48,6 @@
     <ClInclude Include="Math\Transform.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="Math\Vector2.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Vector3.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Rect.h">
-      <Filter>Math</Filter>
-    </ClInclude>
     <ClInclude Include="Serialization\Json.h">
       <Filter>Serialization</Filter>
     </ClInclude>
@@ -100,9 +91,6 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Renderer\Font.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\Mesh.h">
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\ParticleSystem.h">
@@ -170,9 +158,6 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Renderer\Font.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\Mesh.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Renderer\ParticleSystem.cpp">

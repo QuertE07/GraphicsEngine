@@ -3,7 +3,6 @@
 #include "Model.h"
 #include "Math/Transform.h"
 #include "Math/MathUtils.h"
-#include "Math/Rect.h"
 #include "Texture.h"
 #include "Pipeline.h"
 #include "VertexBuffer.h"
@@ -134,7 +133,7 @@ void gl::Renderer::SetColor(float r, float g, float b, float a) const
     SDL_SetRenderDrawColorFloat(m_renderer, r, g, b, a);
 }
 
-void gl::Renderer::SetColor(const Color& color) const
+void gl::Renderer::SetColor(const glm::vec3& color) const
 {
     SDL_SetRenderDrawColorFloat(m_renderer, color.r, color.g, color.b, 1.0f);
 }

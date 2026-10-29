@@ -1,5 +1,4 @@
 #pragma once
-#include "Math/Vector2.h"
 
 namespace gl
 {
@@ -30,7 +29,7 @@ namespace gl
 
 		bool GetMouseDown(int button) const { return false; }
 
-		Vector2 GetMousePosition() const { return m_mousePosition; }
+		glm::vec2 GetMousePosition() const { return m_mousePosition; }
 
 	private:
 		// keyboard
@@ -41,7 +40,7 @@ namespace gl
 		uint32_t m_buttonStates = 0;
 		uint32_t m_prevButtonStates = 0;
 
-		Vector2 m_mousePosition{ 0, 0 };
+		glm::vec2 m_mousePosition{ 0, 0 };
 
 		uint32_t GetButtonBit(MouseButton button) const;
 	};

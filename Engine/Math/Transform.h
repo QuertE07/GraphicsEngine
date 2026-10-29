@@ -1,6 +1,5 @@
 #pragma once
 #include "Serialization/Json.h"
-#include "Vector2.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>

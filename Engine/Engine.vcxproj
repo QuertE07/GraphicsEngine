@@ -206,13 +206,9 @@
     <ClInclude Include="Framework\Scene.h" />
     <ClInclude Include="Input\Input.h" />
     <ClInclude Include="Math\MathUtils.h" />
-    <ClInclude Include="Math\Rect.h" />
     <ClInclude Include="Math\Transform.h" />
-    <ClInclude Include="Math\Vector2.h" />
-    <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Renderer\Font.h" />
     <ClInclude Include="Renderer\IndexBuffer.h" />
-    <ClInclude Include="Renderer\Mesh.h" />
     <ClInclude Include="Renderer\Model.h" />
     <ClInclude Include="Renderer\ParticleSystem.h" />
     <ClInclude Include="Renderer\Pipeline.h" />
@@ -244,7 +240,6 @@
     </ClCompile>
     <ClCompile Include="Renderer\Font.cpp" />
     <ClCompile Include="Renderer\IndexBuffer.cpp" />
-    <ClCompile Include="Renderer\Mesh.cpp" />
     <ClCompile Include="Renderer\Model.cpp" />
     <ClCompile Include="Renderer\ParticleSystem.cpp" />
     <ClCompile Include="Renderer\Pipeline.cpp" />
