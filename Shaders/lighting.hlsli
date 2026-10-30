@@ -4,12 +4,15 @@
 #define LIGHT_POINT 1
 #define LIGHT_SPOT 2
 
+static const uint MAX_LIGHTS = 8;
+
 struct Material
 {
     float4 color;
     float2 tiling;
     float2 offset;
     float smoothness;
+    float3 padding;
 };
 
 struct Light
@@ -20,10 +23,9 @@ struct Light
     float range;
     float3 color;
     float intensity;
-    float3 ambient;
     float innerCutoff;
     float outerCutoff;
-    float3 padding;
+    float2 padding;
 };
 
 float calculateAttenuation(float distance, float range)
@@ -42,21 +44,21 @@ float3 getLightVector(Light light, float3 position, out float attenuation)
             L = normalize(-light.direction);
             break;
         case LIGHT_POINT:
-            {
+        {
             float3 toLight = light.position - position;
             float distance = length(toLight);
             attenuation = calculateAttenuation(distance, light.range);
             L = toLight / distance;
-            }
+        }
             break;
         case LIGHT_SPOT:
-            {
+        {
             float3 toLight = light.position - position;
             float distance = length(toLight);
-            attenuation = calculateAttenuation(distance, light.range);
             L = toLight / distance;
-            attenuation *= smoothstep(light.outerCutoff, light.innerCutoff, dot(-L, light.direction));
-            }
+            attenuation = calculateAttenuation(distance, light.range);
+            attenuation *= smoothstep(light.outerCutoff, light.innerCutoff, dot(-L, normalize(light.direction)));
+        }
             break;
     }
     
@@ -71,6 +73,7 @@ float3 calculateDiffuse(float3 radiance, float3 N, float3 L)
 float3 calculateSpecular(float3 radiance, float3 N, float3 L, float3 V, Material material)
 {
     float3 specular = 0;
+    
     if (dot(N, L) > 0)
     {
         // float3 R = reflect(-L, N);
@@ -90,6 +93,6 @@ void calculateLighting(Light light, Material material, float3 position, float3 N
     // light arriving at the surface
     float3 radiance = light.color * light.intensity * attenuation;
 
-    diffuse = light.ambient + calculateDiffuse(radiance, N, L);
-    specular = calculateSpecular(radiance, N, L, V, material);
+    diffuse += calculateDiffuse(radiance, N, L);
+    specular += calculateSpecular(radiance, N, L, V, material);
 }
