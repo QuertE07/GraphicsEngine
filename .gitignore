@@ -362,6 +362,7 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
+# Overrides
 !build/Assets/**/*.obj
 
 !ThirdParty/**/[Bb]in/
