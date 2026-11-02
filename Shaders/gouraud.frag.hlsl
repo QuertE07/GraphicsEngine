@@ -3,7 +3,22 @@
 Texture2D<float4> u_texture : register(t0, space2);
 SamplerState u_sampler : register(s0, space2);
 
-cbuffer MaterialUniforms : register(b0, space3)
+cbuffer VertexUniforms : register(b0, space3)
+{
+    float4x4 mvp;
+    float4x4 model;
+    float3 cameraPosition;
+    float padding1;
+}
+
+cbuffer LightUniforms : register(b1, space3)
+{
+    Light lights[MAX_LIGHTS];
+    uint numLights;
+    float3 ambient;
+}
+
+cbuffer MaterialUniforms : register(b2, space3)
 {
     Material material;
 }

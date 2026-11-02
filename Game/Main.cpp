@@ -102,12 +102,12 @@ int main()
     auto ib = std::make_shared<IndexBuffer>();
     ib->Create(indices, Engine::Get().GetRenderer());
 
-    auto model = Resources().Get<Model>("models/sphere.obj", Engine::Get().GetRenderer());
-    auto texture = Resources().Get<Texture>("textures/gray_diffuse.png", Engine::Get().GetRenderer());
+    auto model = Resources().Get<Model>("models/Meg.obj", Engine::Get().GetRenderer());
+    auto texture = Resources().Get<Texture>("textures/Meg_BaseColor.png", Engine::Get().GetRenderer());
 
     auto vshader = Resources().Get<gl::Shader>("shaders/phong.vert", Engine::Get().GetRenderer(), 3);
     auto fshader = Resources().Get<gl::Shader>("shaders/phong.frag", Engine::Get().GetRenderer(), 3, 1);
-
+    
     auto pipeline = std::make_shared<Pipeline>();
 
     pipeline->AddVertexBuffer(sizeof(Model::Vertex));
@@ -138,7 +138,7 @@ int main()
         .direction{ -0.5, -0.3, -1 },
         .range{ 120.0f },
         .color{ 0.1f, 0.1f, 1 },
-        .intensity{ 1.5f },
+        .intensity{ 1 },
         .innerCutoff = glm::cos(glm::radians(40.0f)),
         .outerCutoff = glm::cos(glm::radians(45.0f))
     };
@@ -161,7 +161,7 @@ int main()
         .color{ 1, 1, 1, 1 },
         .tiling{ 1.0f, 1.0f },
         .offset{ 0.0f, 0.0f },
-        .smoothness = 20
+        .smoothness = 15
     };
 
     glm::vec3 cameraPosition{ 0, 0, 5 };
@@ -228,7 +228,7 @@ int main()
         //}
 
         // TRANSFORM
-        transform.rotation.x = time * 90;
+        // transform.rotation.x = time * 90;
 
         // VIEW MATRIX
         auto view = glm::lookAtRH(cameraPosition, cameraPosition + cameraRotation, glm::vec3{ 0, 1, 0 });
