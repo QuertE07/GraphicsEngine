@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+#include <glm/glm.hpp>
 
 namespace gl
 {
@@ -31,6 +33,8 @@ namespace gl
 
 		glm::vec2 GetMousePosition() const { return m_mousePosition; }
 
+		glm::vec2 GetMouseDelta() const { return m_mousePosition - m_prevMousePosition; }
+
 	private:
 		// keyboard
 		std::vector<bool> m_keyStates;
@@ -41,6 +45,7 @@ namespace gl
 		uint32_t m_prevButtonStates = 0;
 
 		glm::vec2 m_mousePosition{ 0, 0 };
+		glm::vec2 m_prevMousePosition{ 0, 0 };
 
 		uint32_t GetButtonBit(MouseButton button) const;
 	};

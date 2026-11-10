@@ -2,10 +2,13 @@
 #include "Resources/Resource.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "Renderer/MaterialInstance.h"
 #include <glm/glm.hpp>
 #include <memory>
 #include <string>
 #include <vector>
+
+#define DEFAULT_MATERIAL "materials/phong.material.json"
 
 // forward declare assimp types so the header doesn't pull in assimp
 struct aiNode;
@@ -30,19 +33,23 @@ namespace gl
 		{
 			std::unique_ptr<VertexBuffer> vertexBuffer;
 			std::unique_ptr<IndexBuffer> indexBuffer;
+			uint32_t materialIndex = 0;
 		};
 
 	public:
 		bool Load(const std::string& filename, const class Renderer& renderer);
 
 		// binds and draws every mesh, call between BeginFrame and EndFrame with a pipeline set
-		void Draw(class Renderer& renderer) const;
+		void Draw(const class Renderer& renderer, const std::vector<res_t<MaterialInstance>>& overrides = {}) const;
 
 	private:
 		void ProcessNode(aiNode* node, const aiScene* scene, const class Renderer& renderer);
 		void ProcessMesh(aiMesh* mesh, const aiScene* scene, const class Renderer& renderer);
 
+		void LoadMaterials(const aiScene* scene, const std::string& directory, const class Renderer& renderer);
+
 	private:
 		std::vector<Mesh> m_meshes;
+		std::vector<MaterialInstance> m_materials;
 	};
 }

@@ -1,4 +1,6 @@
 #pragma once
+
+#include "Uniforms.h"
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <SDL3_image/SDL_image.h>
@@ -31,23 +33,20 @@ namespace gl
 		int GetWidth() const { return m_width; }
 		int GetHeight() const { return m_height; }
 
-		const glm::vec2& GetCamera() { return m_camera; }
-		void SetCamera(const glm::vec2& camera) { m_camera = camera; }
-		void EnableCamera(bool enable = true) { m_cameraEnabled = enable; }
-
 		SDL_GPUDevice* GetGPUDevice() const { return m_gpuDevice; }
 		SDL_Window* GetWindow() const { return m_window; }
 
-		void SetPipeline(const class Pipeline& pipeline);
-		void SetVertexBuffer(const class VertexBuffer& vertexBuffer);
-		void SetIndexBuffer(const class IndexBuffer& indexBuffer);
+		void SetPipeline(const class Pipeline& pipeline) const;
+		void SetVertexBuffer(const class VertexBuffer& vertexBuffer) const;
+		void SetIndexBuffer(const class IndexBuffer& indexBuffer) const;
 		void Draw(uint32_t vertexCount);
-		void DrawIndex(const class IndexBuffer& indexBuffer);
+		void DrawIndex(const class IndexBuffer& indexBuffer) const;
 
-		void SetVertexUniform(uint32_t slot, const void* data, uint32_t size);
-		void SetFragmentUniform(uint32_t slot, const void* data, uint32_t size);
+		void SetVertexUniform(UniformSlot slot, const void* data, uint32_t size) const;
+		void SetFragmentUniform(UniformSlot slot, const void* data, uint32_t size) const;
 
 		void SetFragmentTexture(uint32_t slot, const class Texture& texture);
+		void SetMaterial(const class MaterialInstance& materialInstance) const;
 
 		void CreateDepthBuffer();
 
@@ -56,6 +55,7 @@ namespace gl
 		friend class Shader;
 		friend class VertexBuffer;
 		friend class IndexBuffer;
+		friend class Material;
 
 	private:
 		SDL_Window* m_window = nullptr;
@@ -65,9 +65,6 @@ namespace gl
 		SDL_GPUCommandBuffer* m_commandBuffer = nullptr;
 		SDL_GPURenderPass* m_renderPass = nullptr;
 		SDL_GPUTexture* m_depthTexture = nullptr;
-
-		bool m_cameraEnabled = true;
-		glm::vec2 m_camera = { 0, 0 };
 
 		int m_width = 0;
 		int m_height = 0;

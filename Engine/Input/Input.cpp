@@ -27,6 +27,7 @@ namespace gl
 		std::copy(keyState, keyState + m_keyStates.size(), m_keyStates.begin());
 
 		m_prevButtonStates = m_buttonStates;
+		m_prevMousePosition = m_mousePosition;
 		m_buttonStates = SDL_GetMouseState(&m_mousePosition.x, &m_mousePosition.y);
 	}
 

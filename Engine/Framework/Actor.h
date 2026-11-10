@@ -50,7 +50,8 @@ namespace gl
         const Transform& GetTransform() const { return m_transform; }
         void SetTransform(const Transform& transform) { m_transform = transform; }
         void SetPosition(const glm::vec3& position) { m_transform.position = position; }
-        void SetRotation(const glm::vec3& rotation) { m_transform.rotation = rotation; }
+        void SetRotation(const glm::vec3& rotation) { m_transform.SetRotation(rotation); }
+        void SetRotation(const glm::quat& rotation) { m_transform.SetRotation(rotation); }
         void SetScale(const glm::vec3& scale) { m_transform.scale = scale; }
 
         const std::string& GetName() const { return m_name; }
@@ -77,10 +78,10 @@ namespace gl
     protected:
         std::string m_tag;
 
-        Transform m_transform;
+        Transform m_transform{};
         float m_lifespan{ 0 };
         bool m_destroyed{ false };
-        bool m_persistent = 0;
+        bool m_persistent{ false };
 
         std::vector<std::unique_ptr<Component>> m_components;
 

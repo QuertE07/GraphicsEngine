@@ -7,6 +7,12 @@
     <Filter Include="Assets\Shaders">
       <UniqueIdentifier>{5b2d8567-4595-4f6d-9ed9-220ef55b7a6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Scenes">
+      <UniqueIdentifier>{a440f5e9-afd1-4e62-9c1e-9abfed077f02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Materials">
+      <UniqueIdentifier>{2e36c1e1-0864-4a98-a086-81aef21caff8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -40,6 +46,18 @@
   <ItemGroup>
     <None Include="..\Shaders\lighting.hlsli">
       <Filter>Assets\Shaders</Filter>
+    </None>
+    <None Include="..\build\Assets\scenes\scene.json">
+      <Filter>Assets\Scenes</Filter>
+    </None>
+    <None Include="..\Shaders\uniforms.hlsli">
+      <Filter>Assets\Shaders</Filter>
+    </None>
+    <None Include="..\build\Assets\materials\meg.instance.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\build\Assets\materials\phong.material.json">
+      <Filter>Assets\Materials</Filter>
     </None>
   </ItemGroup>
 </Project>

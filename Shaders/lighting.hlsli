@@ -4,7 +4,7 @@
 #define LIGHT_POINT 1
 #define LIGHT_SPOT 2
 
-static const uint MAX_LIGHTS = 8;
+#define MAX_LIGHTS 8
 
 struct Material
 {
@@ -26,6 +26,13 @@ struct Light
     float innerCutoff;
     float outerCutoff;
     float2 padding;
+};
+
+struct Lights
+{
+    Light lights[MAX_LIGHTS];
+    uint count;
+    float3 ambient;
 };
 
 float calculateAttenuation(float distance, float range)

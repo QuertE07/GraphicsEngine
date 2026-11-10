@@ -38,6 +38,8 @@ struct Output
 Output main(Input input)
 {
     Output output;
+    output.diffuse = ambient;
+    
     output.texcoord = (input.texcoord * material.tiling) + material.offset;
     output.position = mul(mvp, float4(input.position, 1.0f));
     

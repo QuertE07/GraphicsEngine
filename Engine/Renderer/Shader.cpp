@@ -2,6 +2,7 @@
 #include "Shader.h"
 #include "Renderer.h"
 #include "Core/File.h"
+#include "Serialization/Json.h"
 
 namespace gl
 {
@@ -15,9 +16,10 @@ namespace gl
 		}
 	}
 
-	bool Shader::Load(const std::string& filename, Renderer& renderer, uint32_t uniformCount, uint32_t samplerCount)
+	bool Shader::Load(const std::string& filename, const Renderer& renderer)
 	{
 		// store the renderer's gpu device in m_gpuDevice so the destructor can release the shader later
+		m_gpuDevice = renderer.GetGPUDevice();
 
 		// figure out the shader stage from the filename
 		// if the filename contains ".vert" set stage to SDL_GPU_SHADERSTAGE_VERTEX
@@ -49,7 +51,7 @@ namespace gl
 
 		// get the shader formats supported by the gpu device
 		// the result is a set of bit flags, use & to check if a format is supported
-		SDL_GPUShaderFormat backendFormats = SDL_GetGPUShaderFormats(renderer.m_gpuDevice);
+		SDL_GPUShaderFormat backendFormats = SDL_GetGPUShaderFormats(m_gpuDevice);
 		if (backendFormats & SDL_GPU_SHADERFORMAT_SPIRV)
 		{
 			shaderFilename += ".spv";
@@ -78,6 +80,17 @@ namespace gl
 			return false;
 		}
 
+		// get samplers count 
+		json::document_t metadata;
+		if (!json::Load(filename + ".json", metadata))
+		{
+			std::cerr << "Could not load shader metadata: " << filename << ".json" << std::endl;
+			return false;
+		}
+
+		unsigned int samplers = 0;
+		JSON_READ(metadata, samplers);
+
 		// fill out the shader settings
 		// each field below needs a value, replace each {} using the comment beside it
 		SDL_GPUShaderCreateInfo shaderInfo{
@@ -86,12 +99,12 @@ namespace gl
 			.entrypoint = entrypoint, // todo: the entry function name
 			.format = format, // todo: the shader format found above
 			.stage = stage, // todo: the shader stage found above
-			.num_samplers = samplerCount,
-			.num_uniform_buffers = uniformCount
+			.num_samplers = samplers,
+			.num_uniform_buffers = 4
 		};
 
 		// create the shader with SDL_CreateGPUShader(device, &createInfo) and store it in m_gpuShader
-		m_gpuShader = SDL_CreateGPUShader(renderer.m_gpuDevice, &shaderInfo);
+		m_gpuShader = SDL_CreateGPUShader(m_gpuDevice, &shaderInfo);
 
 		// if the shader is null, creation failed
 		// print an error with std::cerr that includes SDL_GetError() and return false

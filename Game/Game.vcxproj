@@ -211,7 +211,11 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\build\Assets\materials\meg.instance.json" />
+    <None Include="..\build\Assets\materials\phong.material.json" />
+    <None Include="..\build\Assets\scenes\scene.json" />
     <None Include="..\Shaders\lighting.hlsli" />
+    <None Include="..\Shaders\uniforms.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\Shaders\phong.frag.hlsl">

@@ -7,6 +7,7 @@
 #include "Pipeline.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "MaterialInstance.h"
 
 bool gl::Renderer::Initialize(const char* name, int width, int height)
 {
@@ -22,6 +23,7 @@ bool gl::Renderer::Initialize(const char* name, int width, int height)
     }
 
     SDL_GPUShaderFormat formats = SDL_GPU_SHADERFORMAT_SPIRV | SDL_GPU_SHADERFORMAT_DXIL;
+    SDL_SetHint(SDL_HINT_GPU_DRIVER, "vulkan");
     m_gpuDevice = SDL_CreateGPUDevice(formats, true, NULL);
     if (!m_gpuDevice)
     {
@@ -165,7 +167,7 @@ void gl::Renderer::DrawDebugText(float x, float y, const char* text) const
     SDL_RenderDebugText(m_renderer, x, y, text);
 }
 
-void gl::Renderer::SetPipeline(const Pipeline& pipeline)
+void gl::Renderer::SetPipeline(const Pipeline& pipeline) const
 {
     // bind the pipeline to the current render pass with SDL_BindGPUGraphicsPipeline(renderPass, gpuPipeline)
     // the pipeline sets the shaders and render settings used by the draw calls that follow
@@ -173,7 +175,7 @@ void gl::Renderer::SetPipeline(const Pipeline& pipeline)
     SDL_BindGPUGraphicsPipeline(m_renderPass, pipeline.m_gpuPipeline);
 }
 
-void gl::Renderer::SetVertexBuffer(const VertexBuffer& vertexBuffer)
+void gl::Renderer::SetVertexBuffer(const VertexBuffer& vertexBuffer) const
 {
     // describe which buffer to bind and where to start reading from
     SDL_GPUBufferBinding binding{
@@ -191,7 +193,7 @@ void gl::Renderer::SetVertexBuffer(const VertexBuffer& vertexBuffer)
     SDL_BindGPUVertexBuffers(m_renderPass, 0, &binding, 1);
 }
 
-void gl::Renderer::SetIndexBuffer(const IndexBuffer& indexBuffer)
+void gl::Renderer::SetIndexBuffer(const IndexBuffer& indexBuffer) const
 {
     // describe which buffer to bind and where to start reading from
     SDL_GPUBufferBinding binding{
@@ -219,19 +221,19 @@ void gl::Renderer::Draw(uint32_t vertexCount)
     SDL_DrawGPUPrimitives(m_renderPass, vertexCount, 1, 0, 0);
 }
 
-void gl::Renderer::DrawIndex(const IndexBuffer& indexBuffer)
+void gl::Renderer::DrawIndex(const IndexBuffer& indexBuffer) const
 {
     SDL_DrawGPUIndexedPrimitives(m_renderPass, indexBuffer.GetIndexCount(), 1, 0, 0, 0);
 }
 
-void gl::Renderer::SetVertexUniform(uint32_t slot, const void* data, uint32_t size)
+void gl::Renderer::SetVertexUniform(UniformSlot slot, const void* data, uint32_t size) const
 {
-    SDL_PushGPUVertexUniformData(m_commandBuffer, slot, data, size);
+    SDL_PushGPUVertexUniformData(m_commandBuffer, (uint32_t)slot, data, size);
 }
 
-void gl::Renderer::SetFragmentUniform(uint32_t slot, const void* data, uint32_t size)
+void gl::Renderer::SetFragmentUniform(UniformSlot slot, const void* data, uint32_t size) const
 {
-    SDL_PushGPUFragmentUniformData(m_commandBuffer, slot, data, size);
+    SDL_PushGPUFragmentUniformData(m_commandBuffer, (uint32_t)slot, data, size);
 }
 
 void gl::Renderer::SetFragmentTexture(uint32_t slot, const Texture& texture)
@@ -243,6 +245,12 @@ void gl::Renderer::SetFragmentTexture(uint32_t slot, const Texture& texture)
     };
 
     SDL_BindGPUFragmentSamplers(m_renderPass, slot, &binding, 1);
+}
+
+void gl::Renderer::SetMaterial(const MaterialInstance& materialInstance) const
+{
+    SetPipeline(materialInstance.GetMaterial().GetPipeline());
+    materialInstance.Bind(m_commandBuffer, m_renderPass);
 }
 
 void gl::Renderer::CreateDepthBuffer()
