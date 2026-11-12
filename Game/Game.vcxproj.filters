@@ -59,5 +59,8 @@
     <None Include="..\build\Assets\materials\phong.material.json">
       <Filter>Assets\Materials</Filter>
     </None>
+    <None Include="..\build\Assets\materials\armor.instance.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
   </ItemGroup>
 </Project>

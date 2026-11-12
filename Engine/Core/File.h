@@ -16,6 +16,7 @@ namespace gl
 
     std::vector<std::string> GetFilesInDirectory(const std::string& path);
     std::vector<std::string> GetDirectoriesIn(const std::string& path);
+    std::string GetParentDirectory(const std::string& path);
 
     std::vector<uint8_t> ReadBinaryFile(const std::string& path);
 

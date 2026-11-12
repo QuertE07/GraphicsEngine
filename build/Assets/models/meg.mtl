@@ -1,0 +1,22 @@
+# Blender 5.1.2 MTL File: 'CharacterModel_Meg.blend'
+# www.blender.org
+
+newmtl Armor
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Neumont/Q4/PRO230-DigitalArtProjects/Projects/Character Model/Textures/CharacterModel_Meg_Armor_BaseColor.png
+
+newmtl Meg
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2

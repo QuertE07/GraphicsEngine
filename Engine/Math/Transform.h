@@ -14,7 +14,7 @@ namespace gl
     struct Transform
     {
         glm::vec3 position{ 0.0f };
-        glm::quat rotation{ glm::identity<glm::quat>() };
+        glm::quat rotation = glm::identity<glm::quat>();
         glm::vec3 scale{ 1.0f };
 
         void SetRotation(const glm::vec3& euler) { rotation = glm::quat(glm::radians(euler)); }
@@ -37,9 +37,8 @@ namespace gl
         {
             JSON_READ_NAME(value, "pos", position);
 
-            glm::vec3 euler;
-            JSON_READ_NAME(value, "rot", euler);
-            SetRotation(euler);
+            glm::vec3 euler{};
+            if (JSON_READ_NAME(value, "rot", euler)) SetRotation(euler);
 
             JSON_READ_NAME(value, "scale", scale);
         }

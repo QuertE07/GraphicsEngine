@@ -117,7 +117,10 @@ namespace gl
 		renderer.SetVertexUniform(UniformSlot::Light, &lightUniform, sizeof(lightUniform));
 		renderer.SetFragmentUniform(UniformSlot::Light, &lightUniform, sizeof(lightUniform));
 
-		for (auto& actor : m_actors) { actor->Draw(renderer); }
+		for (auto& actor : m_actors)
+		{
+			if (actor && actor->IsActive()) actor->Draw(renderer);
+		}
 	}
 
 	//void Scene::UpdateCollisions()

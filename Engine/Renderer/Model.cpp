@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "Renderer.h"
 #include "Resources/ResourceManager.h"
+#include "Core/File.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -28,7 +29,8 @@ namespace gl
 			return false;
 		}
 
-		std::string directory = "";//GetParentDirectory(filename) + "/";
+		// texture paths in the model are relative to the model file
+		std::string directory = GetParentDirectory(filename) + "/";
 		LoadMaterials(scene, directory, renderer);
 
 		// todo: start processing the scene from the root node with ProcessNode(node, scene, renderer)
@@ -66,7 +68,7 @@ namespace gl
 		// process the current node children
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
 		{
-			ProcessNode(*node->mChildren, scene, renderer);
+			ProcessNode(node->mChildren[i], scene, renderer);
 		}
 	}
 

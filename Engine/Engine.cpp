@@ -6,8 +6,10 @@ namespace gl
 {
 	bool Engine::Initialize()
 	{
-		m_renderer.Initialize("Game", 1280, 1024);
+		m_renderer.Initialize("Game", 1920, 1080);
 		m_input.Initialize();
+		m_editor = std::make_unique<Editor>();
+		m_editor->Initialize(m_renderer);
 		m_particleSystem.Initialize(5000);
 		m_audio.Initialize();
 
@@ -19,6 +21,7 @@ namespace gl
 		m_audio.Shutdown();
 		m_particleSystem.Shutdown();
 		m_input.Shutdown();
+		m_editor->Shutdown();
 		m_renderer.Shutdown();
 	}
 

@@ -8,14 +8,20 @@ namespace gl
 
 	void ModelComponent::Draw(const Renderer& renderer)
 	{
+		if (!m_model)
+		{
+			std::cerr << "Could not draw model for actor " << m_owner->GetName() << ".\n";
+			return;
+		}
+
 		ObjectUniform objectUniform
 		{
 			.model = m_owner->GetTransform().GetMatrix(),
-			.normalMatrix = m_owner->GetTransform().GetMatrix()
+			.normalMatrix = glm::transpose(glm::inverse(m_owner->GetTransform().GetMatrix()))
 		};
 
-		renderer.SetVertexUniform(UniformSlot::Light, &objectUniform, sizeof(objectUniform));
-		renderer.SetFragmentUniform(UniformSlot::Light, &objectUniform, sizeof(objectUniform));
+		renderer.SetVertexUniform(UniformSlot::Object, &objectUniform, sizeof(objectUniform));
+		renderer.SetFragmentUniform(UniformSlot::Object, &objectUniform, sizeof(objectUniform));
 
 		m_model->Draw(renderer, m_materials);
 	}
@@ -25,7 +31,7 @@ namespace gl
 		RendererComponent::Read(value);
 
 		std::string modelName;
-		JSON_READ_NAME(value, "model", modelName);
+		JSON_READ_NAME_REQ(value, "model", modelName);
 
 		m_model = Resources().Get<Model>(modelName, Engine::Get().GetRenderer());
 

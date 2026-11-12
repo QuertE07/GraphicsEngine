@@ -19,19 +19,6 @@
 
 using namespace gl;
 
-namespace gl {
-    struct Color4
-    {
-        float r, g, b, a;
-    };
-}
-
-struct Vertex
-{
-    glm::vec3 position;
-    Color4 color;
-};
-
 int main()
 {
     SetWorkingDirectory("Assets");
@@ -47,6 +34,8 @@ int main()
 
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
+            Engine::Get().GetEditor().ProcessEvent(event);
+
             if (event.type == SDL_EVENT_QUIT) {
                 quit = true;
             }
@@ -63,10 +52,17 @@ int main()
         // SCENE
         scene.Update(dt);
 
+        // EDITOR
+        Engine::Get().GetEditor().BeginFrame();
+        Engine::Get().GetEditor().Update();
+
         // RENDER
         renderer.BeginFrame();
 
         scene.Draw(renderer);
+
+        renderer.EndRenderPass();
+        Engine::Get().GetEditor().Draw(renderer);
 
         renderer.EndFrame();
     }

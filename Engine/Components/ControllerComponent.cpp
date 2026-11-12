@@ -43,8 +43,8 @@ namespace gl
             direction = glm::normalize(direction);
         }
         m_owner->SetPosition(m_owner->GetTransform().position + direction * (m_speed * dt));
-
 	}
+
     void ControllerComponent::Read(const json::value_t& value)
     {
         Component::Read(value);

@@ -25,6 +25,7 @@
 
 #include "Serialization/Json.h"
 #include "Input/Input.h"
+#include "Editor/Editor.h"
 #include "Audio/Audio.h"
 
 #include <iostream>
@@ -46,6 +47,7 @@ namespace gl
 		Input& GetInput() { return m_input; }
 		Renderer& GetRenderer() { return m_renderer; }
 		Time& GetTime() { return m_time; }
+		Editor& GetEditor() { return *m_editor; }
 		ParticleSystem& GetPS() { return m_particleSystem; }
 		Audio& GetAudio() { return m_audio; }
 
@@ -57,6 +59,7 @@ namespace gl
 
 		Time m_time;
 
+		std::unique_ptr<Editor> m_editor;
 		ParticleSystem m_particleSystem;
 		Audio m_audio;
 	};
