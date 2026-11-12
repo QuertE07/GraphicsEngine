@@ -102,7 +102,7 @@ namespace gl
 		}
 
 		LightUniform lightUniform{};
-		lightUniform.ambient = glm::vec3{ 0.2f };
+		lightUniform.ambient = glm::vec3{ 0, 0, 0.1f };
 
 		auto lights = GetActorsByTag("Light");
 		for (auto light : lights)
