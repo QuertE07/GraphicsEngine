@@ -33,6 +33,7 @@ namespace gl
 	private:
 		std::vector<std::unique_ptr<Actor>> m_actors;
 		std::vector<std::unique_ptr<Actor>> m_pendingActors;
+		glm::vec3 m_ambient = {};
 
 		class Game* m_game{ nullptr };
 	};

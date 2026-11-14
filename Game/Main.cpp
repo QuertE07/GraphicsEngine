@@ -29,6 +29,20 @@ int main()
     
     auto& renderer = Engine::Get().GetRenderer();
 
+    auto candle0 = Factory::Instance().Create<Actor>("CandlePrototype");
+    candle0->SetPosition({ -2.54, 4.1, -5.1 });
+    auto candle1 = Factory::Instance().Create<Actor>("CandlePrototype");
+    candle1->SetPosition({ 2.52, 4.1, -5.1 });
+    auto candle2 = Factory::Instance().Create<Actor>("CandlePrototype");
+    candle2->SetPosition({ 3.95, 2.1, -2.53 });
+    auto candle3 = Factory::Instance().Create<Actor>("CandlePrototype");
+    candle3->SetPosition({ -3.82, 2.1, -2.53 });
+
+    scene.AddActor(std::move(candle0));
+    scene.AddActor(std::move(candle1));
+    scene.AddActor(std::move(candle2));
+    scene.AddActor(std::move(candle3));
+
     bool quit = false;
     while (!quit) {
 

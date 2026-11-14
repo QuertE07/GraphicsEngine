@@ -62,5 +62,17 @@
     <None Include="..\build\Assets\materials\armor.instance.json">
       <Filter>Assets\Materials</Filter>
     </None>
+    <None Include="..\build\Assets\materials\chandelier_light.instance.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\build\Assets\materials\chandelier_base1.instance.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\build\Assets\materials\chandelier_base2.instance.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\build\Assets\materials\vase.instance.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
   </ItemGroup>
 </Project>

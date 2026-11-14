@@ -212,8 +212,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\build\Assets\materials\armor.instance.json" />
+    <None Include="..\build\Assets\materials\chandelier_base1.instance.json" />
+    <None Include="..\build\Assets\materials\chandelier_base2.instance.json" />
+    <None Include="..\build\Assets\materials\chandelier_light.instance.json" />
     <None Include="..\build\Assets\materials\meg.instance.json" />
     <None Include="..\build\Assets\materials\phong.material.json" />
+    <None Include="..\build\Assets\materials\vase.instance.json" />
     <None Include="..\build\Assets\scenes\scene.json" />
     <None Include="..\Shaders\lighting.hlsli" />
     <None Include="..\Shaders\uniforms.hlsli" />

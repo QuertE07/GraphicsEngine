@@ -44,7 +44,7 @@ namespace gl
         }
         m_owner->SetPosition(m_owner->GetTransform().position + direction * (m_speed * dt));
 
-        std::cout << m_owner->GetTransform().position.x << " " << m_owner->GetTransform().position.y << " " << m_owner->GetTransform().position.z << std::endl;
+        //std::cout << m_owner->GetTransform().position.x << " " << m_owner->GetTransform().position.y << " " << m_owner->GetTransform().position.z << std::endl;
 	}
 
     void ControllerComponent::Read(const json::value_t& value)

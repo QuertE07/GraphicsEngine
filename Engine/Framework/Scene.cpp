@@ -25,6 +25,8 @@ namespace gl
 		json::document_t document;
 		if (json::Load(sceneName, document))
 		{
+			JSON_READ_NAME(document, "ambient", m_ambient);
+
 			if (JSON_HAS_NAME(document, "actors"))
 			{
 				for (auto& actorValue : JSON_GET_NAME(document, "actors").GetArray())
@@ -102,7 +104,7 @@ namespace gl
 		}
 
 		LightUniform lightUniform{};
-		lightUniform.ambient = glm::vec3{ 0, 0, 0.1f };
+		lightUniform.ambient = m_ambient;
 
 		auto lights = GetActorsByTag("Light");
 		for (auto light : lights)
