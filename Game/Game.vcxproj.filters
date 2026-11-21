@@ -42,6 +42,9 @@
     <CustomBuild Include="..\Shaders\phong.vert.hlsl">
       <Filter>Assets\Shaders</Filter>
     </CustomBuild>
+    <CustomBuild Include="..\Shaders\multi.frag.hlsl">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Shaders\lighting.hlsli">
@@ -72,6 +75,15 @@
       <Filter>Assets\Materials</Filter>
     </None>
     <None Include="..\build\Assets\materials\vase.instance.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\build\Assets\materials\multi.material.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\build\Assets\materials\ground.instance.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\build\Assets\materials\lava.instance.json">
       <Filter>Assets\Materials</Filter>
     </None>
   </ItemGroup>

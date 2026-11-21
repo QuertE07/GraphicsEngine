@@ -1,6 +1,5 @@
 #include "pch.h"
-#include "Scene.h"
-#include "Actor.h"
+#include "Engine.h"
 #include "Core/Factory.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/Light.h"
@@ -57,6 +56,15 @@ namespace gl
 		return true;
 	}
 
+	void Scene::UpdateGui()
+	{
+		glm::vec3 clearColor = Engine::Get().GetRenderer().GetClearColor();
+		ImGui::ColorEdit3("Clear Color", glm::value_ptr(clearColor));
+		Engine::Get().GetRenderer().SetClearColor(clearColor);
+
+		ImGui::ColorEdit3("Ambient Light", glm::value_ptr(m_ambient));
+	}
+
 	void Scene::Update(float dt)
 	{
 		for (auto& actor : m_actors) {
@@ -109,8 +117,10 @@ namespace gl
 		auto lights = GetActorsByTag("Light");
 		for (auto light : lights)
 		{
+			if (!light->IsActive()) continue;
+
 			auto lightComponent = light->GetComponent<LightComponent>();
-			if (lightComponent)
+			if (lightComponent && lightComponent->IsActive())
 			{
 				lightUniform.lights[lightUniform.count++] = lightComponent->GetLightData();
 			}

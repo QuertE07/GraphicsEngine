@@ -1,7 +1,7 @@
 #include "lighting.hlsli"
 
-Texture2D<float4> u_texture : register(t0, space2);
-SamplerState u_sampler : register(s0, space2);
+Texture2D<float4> base_texture : register(t0, space2);
+SamplerState base_sampler : register(s0, space2);
 
 cbuffer VertexUniforms : register(b0, space3)
 {
@@ -39,7 +39,7 @@ Output main(Input input)
 {
 	Output output;
     
-    float4 albedo = u_texture.Sample(u_sampler, input.texcoord) * material.color;
+    float4 albedo = base_texture.Sample(base_sampler, input.texcoord) * material.baseColor;
     output.color = float4(albedo.rgb * input.diffuse + input.specular, albedo.a);
 
 	return output;

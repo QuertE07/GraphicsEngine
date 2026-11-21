@@ -215,7 +215,10 @@
     <None Include="..\build\Assets\materials\chandelier_base1.instance.json" />
     <None Include="..\build\Assets\materials\chandelier_base2.instance.json" />
     <None Include="..\build\Assets\materials\chandelier_light.instance.json" />
+    <None Include="..\build\Assets\materials\ground.instance.json" />
+    <None Include="..\build\Assets\materials\lava.instance.json" />
     <None Include="..\build\Assets\materials\meg.instance.json" />
+    <None Include="..\build\Assets\materials\multi.material.json" />
     <None Include="..\build\Assets\materials\phong.material.json" />
     <None Include="..\build\Assets\materials\vase.instance.json" />
     <None Include="..\build\Assets\scenes\scene.json" />
@@ -229,6 +232,11 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\Shaders\phong.vert.hlsl">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\Shaders\multi.frag.hlsl">
       <FileType>Document</FileType>
     </CustomBuild>
   </ItemGroup>

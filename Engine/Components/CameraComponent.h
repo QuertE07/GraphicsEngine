@@ -18,6 +18,7 @@ namespace gl
 		const glm::mat4x4& GetProjection() const { return m_projection; }
 		const float& GetFov() const { return m_fov; }
 
+		void UpdateGui() override;
 
 	private:
 		glm::mat4x4 m_view;

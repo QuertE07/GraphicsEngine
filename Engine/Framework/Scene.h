@@ -1,5 +1,6 @@
 #pragma once
 #include "Actor.h"
+#include "Editor/Editor.h"
 
 #include <vector>
 #include <string>
@@ -7,13 +8,15 @@
 
 namespace gl
 {
-	class Scene
+	class Scene : public IGUI
 	{
 	public:
 		void AddActor(std::unique_ptr<Actor> actor);
 		void RemoveAllActors(bool force = false);
 
 		bool Load(const std::string& sceneName);
+
+		void UpdateGui() override;
 
 		void Update(float dt);
 		void Draw(const class Renderer& renderer);
@@ -24,11 +27,10 @@ namespace gl
 		template<typename T = Actor>
 		std::vector<T*> GetActorsByTag(const std::string& tag);
 
+		const std::vector<std::unique_ptr<Actor>>& GetActors() const { return m_actors; }
+
 		void SetGame(class Game* game) { m_game = game; }
 		class Game* GetGame() { return m_game; }
-
-	private:
-		//void UpdateCollisions();
 
 	private:
 		std::vector<std::unique_ptr<Actor>> m_actors;

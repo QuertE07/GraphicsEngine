@@ -52,6 +52,37 @@ namespace gl
 				}
 			}
 		}
+	}
 
+	void ModelComponent::UpdateGui()
+	{
+		ImGui::TextColored(ImVec4{ 0, 1, 0, 1 }, "Model");
+		ImGui::Separator();
+		ImGui::Indent(32.0f);
+		if (m_model)
+		{
+			if (ImGui::CollapsingHeader(m_model->GetName().c_str(), ImGuiTreeNodeFlags_CollapsingHeader))
+			{
+				m_model->UpdateGui();
+			}
+		}
+		else ImGui::Text("%s", "null");
+		ImGui::Unindent(32.0f);
+		ImGui::NewLine();
+
+		if (m_materials.size() > 0)
+		{
+			ImGui::TextColored(ImVec4{ 0, 1, 0, 1 }, "Materials");
+			ImGui::Separator();
+			ImGui::Indent(32.0f);
+			for (size_t i = 0; i < m_materials.size(); i++)
+			{
+				if (ImGui::CollapsingHeader(("Material [" + std::to_string(i) + "]: " + m_materials[i]->GetName()).c_str(), ImGuiTreeNodeFlags_CollapsingHeader))
+				{
+					m_materials[i]->UpdateGui();
+				}
+			}
+			ImGui::Unindent(32.0f);
+		}
 	}
 }

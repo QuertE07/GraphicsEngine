@@ -39,4 +39,20 @@ namespace gl
 
 		return lightData;
 	}
+
+	void LightComponent::UpdateGui()
+	{
+		const char* types[3] = {"Directional", "Point", "Spot" };
+		ImGui::Combo("Type", (int*)(&m_type), types, 3);
+		ImGui::ColorEdit3("Color", glm::value_ptr(m_color));
+		ImGui::SliderFloat("Intensity", &m_intensity, 0.0f, 10.0f);
+
+		if (!(m_type == LightType::Directional)) ImGui::DragFloat("Range", &m_range, 0.1f, 0.1f);
+
+		if (m_type == LightType::Spot)
+		{
+			ImGui::DragFloat("Inner Angle", &m_innerAngle, 0.1f, 0.1f, m_outerAngle);
+			ImGui::DragFloat("Outer Angle", &m_outerAngle, 0.1f, m_innerAngle, 90.0f);
+		}
+	}
 }
